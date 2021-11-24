@@ -1,0 +1,27 @@
+name: build-and-upload
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: build-artifact
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    runs-on: ubuntu-latest
+    container: arcatdmz/texlive
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build PDF file
+        run: latexmk && mkdir -p artifacts && cp out/*.pdf ./artifacts/
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: output
+          path: artifacts/*
+      - name: Deploy pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./artifacts
+          publish_branch: outputs

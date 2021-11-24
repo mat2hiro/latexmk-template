@@ -1,0 +1,10 @@
+$latex = 'platex -shell-escape -synctex=1 -interaction=batchmode';
+$bibtex = 'pbibtex';
+$dvipdf = 'dvipdfmx %O -o %D %S';
+$makeindex = 'mendex %O -o %D %S';
+$aux_dir = 'out';
+$out_dir = $aux_dir;
+$pdf_mode = 3;
+$ENV{TZ} = 'Asia/Tokyo';
+$ENV{OPENTYPEFONTS} = '/usr/share/fonts//:';
+$ENV{TTFONTS} = '/usr/share/fonts//:';
